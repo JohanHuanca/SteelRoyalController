@@ -1,0 +1,15 @@
+<div>
+  <button (click)="toggleControlConnection()">
+    {{ getControlButtonText() }}
+  </button>
+  <span>{{ getControlStatusText() }}</span>
+  <!-- <span *ngIf="controlConnectionError">{{ controlConnectionError }}</span>  -->
+  
+  <button (click)="toggleImageConnection()">
+    {{ getImageButtonText() }}
+  </button>
+  <span>{{ getImageStatusText() }}</span>
+  <!-- <span *ngIf="imageConnectionError">{{ imageConnectionError }}</span> -->
+</div>
+
+

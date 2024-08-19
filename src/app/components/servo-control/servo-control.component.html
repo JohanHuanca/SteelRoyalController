@@ -1,0 +1,96 @@
+<div class="main-container">
+  <div class="controls-container">
+    
+    <div class="side">
+      <div class="servo-group">
+        <span>Brazo izquierdo</span>
+        <div *ngFor="let servo of leftArmServos.slice().reverse()" class="servo-control">
+          <span>ID: {{ servo.id }}</span>
+          <input type="range" min="0" max="180" step="1" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+          <input type="number" min="0" max="180" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+        </div>
+      </div>
+      <div class="servo-group">
+        <span>Pierna izquierda</span>
+        <div *ngFor="let servo of leftLegServos.slice().reverse()" class="servo-control">
+          <span>ID: {{ servo.id }}</span>
+          <input type="range" min="0" max="180" step="1" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+          <input type="number" min="0" max="180" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="image-container">
+      <img style="z-index: -1" src="assets/images/robotSinFondo.png" alt="Robot humanoid" />
+      <div style="margin-top: auto;" class="servo-group">
+        <span>Cadera</span>
+        <div *ngFor="let servo of huckleServos.slice().reverse()" class="servo-control">
+          <span>ID: {{ servo.id }}</span>
+          <input type="range" min="0" max="180" step="1" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+          <input type="number" min="0" max="180" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="servo-group">
+        <span>Brazo derecho</span>
+        <div *ngFor="let servo of rightArmServos.slice().reverse()" class="servo-control">
+          <span>ID: {{ servo.id }}</span>
+          <input type="range" min="0" max="180" step="1" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+          <input type="number" min="0" max="180" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+        </div>
+      </div>
+      <div class="servo-group">
+        <span>Pierna derecha</span>
+        <div *ngFor="let servo of rightLegServos.slice().reverse()" class="servo-control">
+          <span>ID: {{ servo.id }}</span>
+          <input type="range" min="0" max="180" step="1" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+          <input type="number" min="0" max="180" [(ngModel)]="servo.angle" (change)="updateServo(servo)" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="table-container">
+      <ngx-datatable class="material" [rows]="positions" [columns]="columns" [headerHeight]="20" [footerHeight]="20"
+        rowHeight="auto" [selected]="selectedPosition" (activate)="onSelect($event)">
+      </ngx-datatable>
+    </div>
+    <input style="margin-bottom: 2%;" type="number" min="100" max="1000" [(ngModel)]="time" />
+    <div class="button-group">
+      <!-- <button (click)="loadPositions()">Obtener Posiciones</button> -->
+      <button (click)="moveToPositionById()">Mover a Posicion</button>
+      <button (click)="movePositionUp()">Subir Posicion</button>
+      <button (click)="movePositionDown()">Bajar Posicion</button>
+      <button (click)="createPosition()">Crear Posición</button>
+      <button (click)="updatePosition()">Actualizar Posición</button>
+      <button (click)="deletePosition()">Eliminar Posición</button>
+    </div>
+    <!-- <select style="margin-bottom: 2%;" [(ngModel)]="selectedMovementId" (ngModelChange)="loadPositions()">
+      <option [ngValue]="-1">Seleccione un movimiento</option>
+      <option *ngFor="let movement of movements" [ngValue]="movement.id">
+        {{ movement.name }}
+      </option>
+    </select> -->
+    <select style="margin-bottom: 2%;" [(ngModel)]="selectedMovement" (ngModelChange)="loadPositions()">
+      <option [ngValue]="null">Seleccione un movimiento</option>
+      <option *ngFor="let movement of movements" [ngValue]="movement">
+        {{ movement.name }}
+      </option>
+    </select>    
+    <input style="margin-bottom: 2%;" [(ngModel)]="newMovementName" type="text" placeholder="Nombre del Movimiento" />
+    <div class="button-group">
+      <button (click)="createMovement()">Crear Movimiento</button>
+      <button (click)="updateMovement()">Actualizar Movimiento</button>
+      <button (click)="deleteMovement()">Eliminar Movimiento</button>
+    </div>
+    <div class="button-group">
+      <button (click)="executeMovement()">Ejecutar Movimiento</button>
+      <button (click)="moveToInitialPosition()">Mover a posicion inicial</button>
+      <button (click)="downloadSelectedPositionsAsJson()">Descargar JSON</button>
+      <button (click)="saveInitialPosition()">Guardar Posicion Inicial</button>
+    </div>
+  </div>
+</div>
